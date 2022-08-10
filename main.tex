@@ -288,7 +288,7 @@ The output of the python script in Problem \ref{prob:output} is the audio file S
 \begin{enumerate}[label=\thesection.\arabic*,ref=\thesection.\theenumi]
 \item Let
 \begin{equation}
-x(n) = \cbrak{\underset{\uparrow}{1},2,3,4,2,1}
+x(n) = \cbrak{\underset{\uparrow}{1},2,3,4,2,1}\label{X(n)}
 \end{equation}
 Sketch $x(n)$.
 \item Let
@@ -343,11 +343,21 @@ and find
 &=\sum _{n=-\infty }^{\infty }x(n)z^{-n-1} = z^{-1}\sum _{n=-\infty }^{\infty }x(n)z^{-n}
 \end{align}
 resulting in \eqref{eq:shift1}. Similarly, it can be shown that
+
 %
 \begin{equation}
-\label{eq:z_trans_shift}
+     \label{eq:z_trans_shift}
 	{\mathcal {Z}}\{x(n-k)\} = z^{-k}X(z)
 \end{equation}
+
+\item Obtain $X(z)$ for $x(n)$ defined in problem $\eqref{X(n)}$.
+\solution 
+\begin{align}
+Z(x(n))&=\sum_{n=-\infty}^{\infty}x(n)z^{-n}\\
+&=x(0)z^{0}+x(1)z^{-1}+x(2)z^{-2}+x(3)z^{-3}+\\
+&\nonumber x(4)z^{-4}+x(5)z^{-5}\\
+&=1+2z^{-1}+3z^{-2}+4z^{-3}+2z^{-4}+z^{-5}
+\end{align}
 
 \item Find
 %
@@ -434,8 +444,19 @@ wget https://raw.githubusercontent.com/kumarsuraj151/EE3900/master/codes/4_Z%20t
 \caption{$\abs{H\brak{e^{\j\omega}}}$}
 \label{fig:dtft}
 \end{figure}
+It is bounded between $(0,4)$ and periodic with period $(6.75)$\\
+\begin{align}
+     H\brak{e^{j \omega}} &= \frac{1+e^{-2j\omega}}{1 + \frac{e^{-j\omega}}{2}}\\
+       \implies \abs{H\brak{e^{j \omega}}} &= \frac{\abs{1+e^{-2j\omega}}}{\abs{1 + \frac{e^{-j\omega}}{2}}}\\
+                           &= \frac{\abs{1+e^{2j\omega}}}{\abs{e^{2j\omega} + \frac{e^{j\omega}}{2}}}\\
+                           &= \frac{\abs{1+\cos2\omega + j\sin2\omega}}{\abs{e^{j\omega}+ \frac{1}{2}}}\\
+                           &= \frac{\abs{4\cos^2\brak{\omega} + 4j\sin\brak{\omega}\cos\brak{\omega}}}{\abs{2e^{j\omega} + 1}}\\
+                           &= \frac{\abs{4\cos\brak{\omega}}\abs{\cos\brak{\omega} + j\sin\brak{\omega}}}{\abs{2\cos\brak{\omega} + 1 + 2j\sin\brak{\omega}}}\\
+       \therefore \abs{H\brak{e^{j \omega}}} &= \frac{\abs{4\cos\brak{\omega}}}{\sqrt{5 +4\cos\brak{\omega}}}
+   \end{align}
+\item Express $x(n)$ in terms of $H(e^{j \omega})$.\\
+\solution
 \end{enumerate}
-It is bounded between $(0,4)$ and periodic with period $(6.75)$
 
 \section{Impulse Response}
 \begin{enumerate}[label=\thesection.\arabic*]
