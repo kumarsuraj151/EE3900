@@ -432,7 +432,7 @@ Let
 H\brak{e^{\j \omega}} = H\brak{z = e^{\j \omega}}.
 \end{equation}
 Plot $\abs{H\brak{e^{\j \omega}}}$.  Comment.  $H(e^{\j \omega})$ is
-known as the {\em Discret Time Fourier Transform} (DTFT) of $x(n)$.
+known as the {\em Discret Time Fourier Transform} (DTFT) of $h(n)$.
 \\
 \solution The following code plots Fig. \ref{fig:dtft}.
 \begin{lstlisting}
@@ -444,7 +444,7 @@ wget https://raw.githubusercontent.com/kumarsuraj151/EE3900/master/codes/4_Z%20t
 \caption{$\abs{H\brak{e^{\j\omega}}}$}
 \label{fig:dtft}
 \end{figure}
-It is bounded between $(0,4)$ and periodic with period $(6.75)$\\
+It is bounded between $(0,4)$ and periodic with period $(2\pi)$\\
 \begin{align}
      H\brak{e^{j \omega}} &= \frac{1+e^{-2j\omega}}{1 + \frac{e^{-j\omega}}{2}}\\
        \implies \abs{H\brak{e^{j \omega}}} &= \frac{\abs{1+e^{-2j\omega}}}{\abs{1 + \frac{e^{-j\omega}}{2}}}\\
@@ -454,12 +454,22 @@ It is bounded between $(0,4)$ and periodic with period $(6.75)$\\
                            &= \frac{\abs{4\cos\brak{\omega}}\abs{\cos\brak{\omega} + j\sin\brak{\omega}}}{\abs{2\cos\brak{\omega} + 1 + 2j\sin\brak{\omega}}}\\
        \therefore \abs{H\brak{e^{j \omega}}} &= \frac{\abs{4\cos\brak{\omega}}}{\sqrt{5 +4\cos\brak{\omega}}}
    \end{align}
-\item Express $x(n)$ in terms of $H(e^{j \omega})$.\\
-\solution
+\item Express $h(n)$ in terms of $H(e^{j \omega})$.\\
+\solution 
+\begin{align}
+     h\brak{n} &= \frac{1}{2\pi}\int_{-\pi}^{\pi}H\brak{e^{j\omega}}e^{j\omega n}d\omega
+   \end{align} 
 \end{enumerate}
 
 \section{Impulse Response}
 \begin{enumerate}[label=\thesection.\arabic*]
+          \item Using long division, 
+     find
+               \begin{align}
+                    h(n), \quad n < 5
+               \end{align}
+               for H(z) in 
+               \eqref{eq:freq_resp}.
 \item \label{prob:impulse_resp}
 Find an expression for $h(n)$ using $H(z)$, given that 
 %in Problem \ref{eq:ztransab} and \eqref{eq:anun}, given that
@@ -491,7 +501,8 @@ wget https://raw.githubusercontent.com/kumarsuraj151/EE3900/master/codes/5_implu
 \label{fig:hn}
 \end{figure}
 Yes, it is bounded and Convergent\\
-%
+
+\item Convergent? Justify using the ratio test.
 \item The system with $h(n)$ is defined to be stable if
 \begin{equation}
 \sum_{n=-\infty}^{\infty}h(n) < \infty
@@ -506,6 +517,7 @@ Is the system defined by \eqref{eq:iir_filter} stable for the impulse response i
 \end{align}
 hence the system defined by \eqref{eq:iir_filter} is stable for the impulse response in \eqref{eq:impulse_resp}?\\
 %
+\item Verify the above result using python code 
 \item 
 Compute and sketch $h(n)$ using 
 \begin{equation}
@@ -553,6 +565,8 @@ wget https://raw.githubusercontent.com/kumarsuraj151/EE3900/master/codes/5_implu
 \caption{$y(n)$ from the definition of convolution}
 \label{fig:ynconv}
 \end{figure}
+
+\item Express the above convolution using a Teoplitz matrix.
 
 \item Show that
 \begin{equation}
@@ -636,6 +650,8 @@ IFFT.
 % Modifying the code with different input parameters and to get the best possible output.
 % %
 % \end{enumerate}
+
+% 
 
 \end{document}
 
