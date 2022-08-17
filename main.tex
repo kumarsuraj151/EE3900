@@ -457,8 +457,28 @@ It is bounded between $(0,4)$ and periodic with period $(2\pi)$\\
 \item Express $h(n)$ in terms of $H(e^{j \omega})$.\\
 \solution 
 \begin{align}
-     h\brak{n} &= \frac{1}{2\pi}\int_{-\pi}^{\pi}H\brak{e^{j\omega}}e^{j\omega n}d\omega
-   \end{align} 
+	H(e^{j\omega})=\sum_{k=-\infty}^\infty h(k)e^{-j\omega k}
+\end{align}
+and
+\begin{align}
+	h(n)=\frac{1}{2\pi}\int_{-\pi}^\pi H(e^{j\omega})e^{j\omega n}d\omega 
+\end{align}
+Now,
+\begin{align}
+\frac{1}{2\pi}\int_{-\pi}^\pi& H(e^{j\omega})e^{j\omega n}d\omega\\
+ &=\frac{1}{2\pi}\int_{-\pi}^\pi \sum_{k=-\infty}^\infty h(k)e^{-j\omega k}e^{j\omega n}d\omega\\
+ &=\frac{1}{2\pi} \sum_{k=-\infty}^\infty h(k)\int_{-\pi}^\pi e^{j\omega (n-k)}d\omega\\
+ &=\frac{1}{2\pi} \sum_{k=-\infty}^\infty h(k)\int_{-\pi}^\pi\cos w(n-k) \\
+ & \nonumber d\omega + \int_{-\pi}^\pi\sin w(n-k) d\omega
+\end{align}
+\begin{align}
+ &=\frac{1}{2\pi} \sum_{k=-\infty}^\infty h(k)\int_{-\pi}^\pi\cos w(n-k)\\
+ &=\frac{1}{2\pi} \sum_{k=-\infty}^\infty h(k) \frac{\sin w(n-k)}{n-k}\Biggr|_{-\pi}^{\pi} \\
+ &=\frac{1}{2\pi} \sum_{k \not = n}h(n) \frac{\sin \pi(n-k)}{n-k} +\sum_{k = n}h(n) \frac{\sin \pi(n-k)}{n-k}\\
+ &=\frac{0+2\pi h(n)}{2\pi}\\
+ &=h(n)
+\end{align}
+
 \end{enumerate}
 
 \section{Impulse Response}
