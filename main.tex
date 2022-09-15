@@ -86,6 +86,7 @@ columns=fullflexible
 \newcommand{\BEQA}{\begin{eqnarray}}
 \newcommand{\EEQA}{\end{eqnarray}}
 \newcommand{\define}{\stackrel{\triangle}{=}}
+\newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
 
 \bibliographystyle{IEEEtran}
 %\bibliographystyle{ieeetr}
@@ -444,7 +445,6 @@ wget https://raw.githubusercontent.com/kumarsuraj151/EE3900/master/codes/4_Z%20t
 \caption{$\abs{H\brak{e^{\j\omega}}}$}
 \label{fig:dtft}
 \end{figure}
-It is bounded between $(0,4)$ and periodic with period $(2\pi)$\\
 \begin{align}
      H\brak{e^{j \omega}} &= \frac{1+e^{-2j\omega}}{1 + \frac{e^{-j\omega}}{2}}\\
        \implies \abs{H\brak{e^{j \omega}}} &= \frac{\abs{1+e^{-2j\omega}}}{\abs{1 + \frac{e^{-j\omega}}{2}}}\\
@@ -454,6 +454,8 @@ It is bounded between $(0,4)$ and periodic with period $(2\pi)$\\
                            &= \frac{\abs{4\cos\brak{\omega}}\abs{\cos\brak{\omega} + j\sin\brak{\omega}}}{\abs{2\cos\brak{\omega} + 1 + 2j\sin\brak{\omega}}}\\
        \therefore \abs{H\brak{e^{j \omega}}} &= \frac{\abs{4\cos\brak{\omega}}}{\sqrt{5 +4\cos\brak{\omega}}}
    \end{align}
+   The period of $|\cos(\omega)|$ is $\pi$. The period of $5+4\cos(\omega)$ is $2\pi$. Hence $\abs{H\brak{e^{\j\omega}}}$ is periodic with period $\pi$.( The LCM of the period of $|\cos(\omega)|$ and $5+4\cos(\omega)$ is $\pi$)
+   The graph of $\abs{H\brak{e^{\j\omega}}}$ is symmetric with respect to y-axis. It is continuous over $\omega$. The following code plots Fig. \ref{fig:dtft}.
 \item Express $h(n)$ in terms of $H(e^{j \omega})$.\\
 \solution 
 \begin{align}
@@ -467,11 +469,11 @@ Now,
 \begin{align}
 \frac{1}{2\pi}\int_{-\pi}^\pi& H(e^{j\omega})e^{j\omega n}d\omega\\
  &=\frac{1}{2\pi}\int_{-\pi}^\pi \sum_{k=-\infty}^\infty h(k)e^{-j\omega k}e^{j\omega n}d\omega\\
- &=\frac{1}{2\pi} \sum_{k=-\infty}^\infty h(k)\int_{-\pi}^\pi e^{j\omega (n-k)}d\omega\\
- &=\frac{1}{2\pi} \sum_{k=-\infty}^\infty h(k)\int_{-\pi}^\pi\cos w(n-k) \\
- & \nonumber d\omega + \int_{-\pi}^\pi\sin w(n-k) d\omega
+ &=\frac{1}{2\pi} \sum_{k=-\infty}^\infty h(k)\int_{-\pi}^\pi e^{j\omega (n-k)}d\omega
 \end{align}
 \begin{align}
+ &=\frac{1}{2\pi} \sum_{k=-\infty}^\infty h(k)\int_{-\pi}^\pi\cos w(n-k)d\omega \\
+ & \nonumber  + \int_{-\pi}^\pi\sin w(n-k) d\omega \\
  &=\frac{1}{2\pi} \sum_{k=-\infty}^\infty h(k)\int_{-\pi}^\pi\cos w(n-k)\\
  &=\frac{1}{2\pi} \sum_{k=-\infty}^\infty h(k) \frac{\sin w(n-k)}{n-k}\Biggr|_{-\pi}^{\pi} \\
  &=\frac{1}{2\pi} \sum_{k \not = n}h(n) \frac{\sin \pi(n-k)}{n-k} +\sum_{k = n}h(n) \frac{\sin \pi(n-k)}{n-k}\\
@@ -489,7 +491,35 @@ Now,
                     h(n), \quad n < 5
                \end{align}
                for H(z) in 
-               \eqref{eq:freq_resp}.
+               \eqref{eq:freq_resp}.\\
+\solution $H(z)$ is given by
+               \begin{align}
+                    H(z)=\frac{1+z^{-2}}{1+\frac{1}{2}z^{-1}}=\frac{2+2z^{-2}}{2+z^{-1}}
+               \end{align}
+               \begin{align}
+                    &2z^{-1}-4\\	
+                    z^{-1}+2\hspace{2mm}&\overline{\big)\hspace{2mm} 2z^{-2}+2\hspace{15mm}}\\
+                    & \hspace{2mm} 2z^{-2}+4z^{-1}\\
+                    &\overline{\hspace{11mm}-4z^{-1}+2\hspace{5mm}}\\
+                    &\hspace{9mm}-4z^{-1}-8\\ 
+                    &\overline{\hspace{24mm}10}
+               \end{align}
+               So,
+               \begin{align}
+                    H(z)&=2z^{-1}-4+\frac{10}{z^{-1}+2}\\
+                    &=2z^{-1}-4+\frac{5}{\frac{1}{2}z^{-1}+1}\\
+                    &=2z^{-1}-4+5\sum_{n=0}^\infty \brak{-\frac{z^{-1}}{2}}^{n}\\
+                    &=1-\frac{1}{2}z^{-1}+\sum_{n=2}^\infty \brak{-\frac{1}{2}}^{n}z^{-n}
+               \end{align}
+               So,h(n) will be given by 
+               \begin{align}
+                    h(n)=\begin{cases}
+                         \label{eq:h_n_def}
+                         5\times \brak{-\frac{1}{2}}^n  & n\geq 2\\
+                         \brak{-\frac{1}{2}}^n  &2>n\geq0\\
+                         0 &n<0
+                    \end{cases}
+               \end{align}
 \item \label{prob:impulse_resp}
 Find an expression for $h(n)$ using $H(z)$, given that 
 %in Problem \ref{eq:ztransab} and \eqref{eq:anun}, given that
@@ -522,7 +552,19 @@ wget https://raw.githubusercontent.com/kumarsuraj151/EE3900/master/codes/5_implu
 \end{figure}
 Yes, it is bounded and Convergent\\
 
-\item Convergent? Justify using the ratio test.
+\item Convergent? Justify using the ratio test.\\
+\solution We can say a given real sequence $\cbrak{x_n}$ is convergent if 
+\begin{align}
+	\lim_{n \rightarrow \infty}\abs{\frac{x_{n+1}}{x_n}} < 1
+\end{align}
+This is known as Ratio test.\\
+In this case the limit will become,
+\begin{align}
+	\lim_{n \rightarrow \infty}\abs{\frac{h\brak{n+1}}{h\brak{n}}} &= \lim_{n \rightarrow \infty}\abs{\frac{5\brak{\frac{-1}{2}}^{n+1}}{5\brak{\frac{-1}{2}}^{n}}} \\
+	&= \lim_{n \rightarrow \infty}\abs{\frac{-1}{2}}\\
+	&= \frac{1}{2}
+\end{align}
+As $\frac{1}{2} < 1$, from root test we can say that $h\brak{n}$ is convergent.
 \item The system with $h(n)$ is defined to be stable if
 \begin{equation}
 \sum_{n=-\infty}^{\infty}h(n) < \infty
@@ -537,7 +579,11 @@ Is the system defined by \eqref{eq:iir_filter} stable for the impulse response i
 \end{align}
 hence the system defined by \eqref{eq:iir_filter} is stable for the impulse response in \eqref{eq:impulse_resp}?\\
 %
-\item Verify the above result using python code 
+\item Verify the above result using python code \\
+\solution the above result can be verify using following code
+\begin{lstlisting}
+wget https://raw.githubusercontent.com/kumarsuraj151/EE3900/master/codes/5_impluse%20responce/hndef.py
+\end{lstlisting}
 \item 
 Compute and sketch $h(n)$ using 
 \begin{equation}
@@ -548,7 +594,7 @@ h(n) + \frac{1}{2}h(n-1) = \delta(n) + \delta(n-2),
 This is the definition of $h(n)$.
 \\
 \solution The following code plots Fig. \ref{fig:hndef}. Note that this is the same as Fig. 
-\ref{fig:hn}. 
+\ref{fig:hn}. \\
 %
 \begin{lstlisting}
 wget https://raw.githubusercontent.com/kumarsuraj151/EE3900/master/codes/5_impluse%20responce/hndef.py
@@ -586,12 +632,65 @@ wget https://raw.githubusercontent.com/kumarsuraj151/EE3900/master/codes/5_implu
 \label{fig:ynconv}
 \end{figure}
 
-\item Express the above convolution using a Teoplitz matrix.
-
+\item Express the above convolution using a Teoplitz matrix.\\
+\solution 
+	From $\eqref{eq:convolution}$,we express $y\brak{n}$ as
+	\begin{align}
+		y\brak{n} &= \sum_{k = -\infty}^{\infty}x\brak{k}h\brak{n-k}
+	\end{align}
+	To understand how we can use a Toeplitz matrix
+	\begin{align}
+		y\brak{0} &= x\brak{0}h\brak{0}\\
+		y\brak{1} &= x\brak{0}h\brak{1} + x\brak{1}h\brak{0}\\
+		y\brak{2} &= x\brak{0}h\brak{2} + x\brak{1}h\brak{1} + x\brak{2}h\brak{0}\\
+		. \nonumber&\\ 
+		.& \nonumber
+	\end{align}
+The same thing can be written as,
+\begin{align}
+		y \brak{0} &= \myvec{h\brak{0} & 0 & 0 &.\,&.\,&.0}\myvec{x\brak{0}\\x\brak{1}\\x\brak{2}\\ . \\.\\x\brak{5}}\\
+		y\brak{1} &= \myvec{h\brak{1} & h\brak{0} & 0 & 0 &.\,&.\,&.0}\myvec{x\brak{0}\\x\brak{1}\\x\brak{2}\\ . \\.\\x\brak{5}}\\
+		y\brak{2} &= \myvec{h\brak{2} & h\brak{1} & h\brak{0} & 0& .\,&.0}\myvec{x\brak{0}\\x\brak{1}\\x\brak{2}\\ . \\.\\x\brak{5}}\\
+		. & \nonumber \\
+		.& \nonumber
+	\end{align}
+	Using Toeplitz matrix of $h\brak{n}$ we can simplify it as,
+	\begin{align}
+		y\brak{n} &= \myvec{h\brak{0} & 0 & 0 &.\,&.\,&.\,0 \\
+			h\brak{1} & h\brak{0} & 0 & .\,&.\,&.\,0 \\
+			h\brak{2} & h\brak{1} & h\brak{0} & .\,&.\,&.\,0 \\
+			&&..\\&&..\\ 0 & 0 &  0 &.\,&.\,&.\, h\brak{m-1}}\myvec{x\brak{0}\\x\brak{1}\\x\brak{2}\\ . \\.\\x\brak{5}}\label{eq:5.9}
+	\end{align}
+	\begin{align}
+		x\brak{n} &= \myvec{1\\2\\3\\4\\2\\1}
+	\end{align}
+	And from $\eqref{eq:h_n_def}$ we will take some values of n,
+	\begin{align} ..
+		h\brak{n} &= \myvec{1 \\ -0.5 \\ 1.25 \\. \\ . }
+	\end{align}
+	Now using $\eqref{eq:5.9}$,
+	\begin{align}
+		y\brak{n} &= x\brak{n}*h\brak{n}\\
+		&= \myvec{1 & 0 & 0 &.\,&.\,&.\,0 \\
+			-0.5 & 1 & 0 & .\,&.\,&.\,0 \\
+			1.25 & -0.5 & 1 & .\,&.\,&.\,0 \\
+			&&..\\&&..\\ 0 & 0 &  0 &.\,&.\,&.\, }\myvec{x\brak{0}\\x\brak{1}\\x\brak{2}\\ . \\.\\x\brak{5}} \\
+		&= \myvec{1\\1.5\\3.25\\.\\.\\.}
+		\label{eq:topliz}
+	\end{align}
+The above equation \eqref{eq:topliz} is the convolution of $x(n)$ and $h(n)$
+	
 \item Show that
 \begin{equation}
-y(n) =  \sum_{n=-\infty}^{\infty}x(n-k)h(k)
+y(n) =  \sum_{k=-\infty}^{\infty}x(n-k)h(k)
 \end{equation}
+\solution Substitute $k := n-k$ in $\eqref{eq:convolution}$, we will get 
+\begin{align}
+y(n) &= \sum_{k=-\infty}^{\infty}x(k)h(n-k)\\
+    &= \sum_{n - k=-\infty}^{\infty}x(n-k)h(k)\\
+    &= \sum_{k = -\infty}^{\infty}x(n-k)h(k)
+\end{align}
+
 \end{enumerate}
 
 \pagebreak

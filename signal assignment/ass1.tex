@@ -1,0 +1,47 @@
+\documentclass[10pt,twocolumn]{IEEEtran}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[latin1]{inputenc}                                 
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                        
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\def\inputGnumericTable{}
+\newcommand{\question}{\noindent \textbf{Question: }}
+\newcommand{\solution}{\noindent \textbf{Solution: }}
+
+
+\title{Assignment 1}
+\author{Suraj kumar \\ \normalsize AI21BTECH11029}
+\begin{document}
+\maketitle
+\question Without explicity solving for $X(z)$,find the region of convergence of the z-transform of the following sequence.
+\begin{enumerate}[label=(\roman*)]
+    \item $$
+    x(n)=
+    \begin{cases}
+    1  &-10\leq n\leq 10\\
+   0  &\text{otherwise}
+    \end{cases}
+    $$
+\end{enumerate}
+\solution 
+\begin{align}
+    Z(x(n))&=\sum_{n=-\infty}^{\infty} x(n) z^{-n}\\
+    &=\sum_{n=-10}^{10}(1)z^{-n}\\
+    &=z^{10}+z^{9} \cdots  z^{-9}+z^{-10}
+\end{align}
+As,the z-transform of $x(n)$ is of finite length.
+it has postive and negative power at $z$ in its $X(z)$.\\
+Therefore, The ROC is\\
+$$0\leq \lvert z \rvert \leq \infty$$
+
+
+
+\end{document}
