@@ -693,7 +693,7 @@ y(n) &= \sum_{k=-\infty}^{\infty}x(k)h(n-k)\\
 
 \end{enumerate}
 
-\pagebreak
+% \pagebreak
 %
 
 \section{DFT and FFT}
@@ -703,11 +703,32 @@ Compute
 \begin{equation}
 X(k) \define \sum _{n=0}^{N-1}x(n) e^{-\j2\pi kn/N}, \quad k = 0,1,\dots, N-1
 \end{equation}
-and $H(k)$ using $h(n)$.
+and $H(k)$ using $h(n)$.\\
+\solution Downlode the python code for questions $6.1$
+\begin{lstlisting}
+wget https://raw.githubusercontent.com/kumarsuraj151/EE3900/master/codes/6_dft%20and%20fft/6_1.py
+\end{lstlisting}
+\begin{figure}[!h]
+     \includegraphics[width = \columnwidth]{figs/dft.png}
+     \centering
+     \caption{Plot of real part of Discrete Fourier Transforms of $x(n)$ and $h(n)$}
+     \label{DFT}
+   \end{figure}
+
 \item Compute 
 \begin{equation}
 Y(k) = X(k)H(k)
 \end{equation}
+\solution download the python code for questions $6.2$\\
+\begin{lstlisting}
+wget https://raw.githubusercontent.com/kumarsuraj151/EE3900/master/codes/6_dft%20and%20fft/6_2.py
+\end{lstlisting}
+\begin{figure}[!h]
+     \centering
+     \includegraphics[width=\columnwidth]{figs/6_2.png}
+     \caption{$Y(k)$ as the product of $X(k)$ and $H(k)$}
+     \label{Y_k} 
+    \end{figure}
 \item Compute
 \begin{equation}
  y\brak{n}={\frac {1}{N}}\sum _{k=0}^{N-1}Y\brak{k}\cdot e^{\j 2\pi kn/N},\quad n = 0,1,\dots, N-1
@@ -726,11 +747,20 @@ wget https://raw.githubusercontent.com/kumarsuraj151/EE3900/master/codes/6_dft%2
 \caption{$y(n)$ from the DFT}
 \label{fig:yndft}
 \end{figure}
-
+\pagebreak
 
 \item Repeat the previous exercise by computing $X(k), H(k)$ and $y(n)$ through FFT and 
-IFFT.
-\item Wherever possible, express all the above equations as matrix equations.
+IFFT.\\
+\solution\\
+\begin{lstlisting}
+wget https://raw.githubusercontent.com/kumarsuraj151/EE3900/master/codes/6_dft%20and%20fft/yn_ifft.py
+\end{lstlisting}
+\begin{figure}[!ht]
+     \includegraphics[width=\columnwidth]{figs/6_4.png}
+     \centering
+     \caption{The plot of $y\brak{n}$ using IFFT}
+     \label{yn_ifft}
+   \end{figure}
 \end{enumerate}
 \pagebreak
 
