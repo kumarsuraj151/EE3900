@@ -54,7 +54,7 @@
 \renewcommand\thesectiondis{\arabic{section}}
 \renewcommand\thesubsectiondis{\thesectiondis.\arabic{subsection}}
 \renewcommand\thesubsubsectiondis{\thesubsectiondis.\arabic{subsubsection}}
-
+\newcommand{\mymat}[1]{\ensuremath{\begin{bmatrix}#1\end{bmatrix}}}
 %\renewcommand{\labelenumi}{\textbf{\theenumi}}
 %\renewcommand{\theenumi}{P.\arabic{enumi}}
 
@@ -805,6 +805,7 @@ W_{N} &= e^{-j2\pi/N}\\
 %    \item Find $\vec{D}_3$.
     \item Show that 
 \begin{equation}
+     \label{7_12}
 	\vec{F}_{4}=
 \begin{bmatrix}
 	\vec{I}_{2} & \vec{D}_{2} \\
@@ -893,6 +894,74 @@ Given
 \vec{P}_{N}
 \end{equation}
 
+     \solution
+     \begin{align}
+          &\mymat{\vec{I}_{N/2} & \vec{D}_{N/2} \\ 
+          \vec{I}_{N/2} & -\vec{D}_{N/2}} \mymat{\vec{F}_{N/2} & 0 \\ 
+          0 & \vec{F}_{N/2}}  \\
+     \end{align}
+     \begin{align}
+          = &\mymat{\vec{F}_{N/2} & \vec{D}_{N/2}\vec{F}_{N/2} \\ \vec{F}_{N/2} & -\vec{D}_{N/2}\vec{F}_{N/2}}   
+     \end{align}
+     
+     
+     Now
+     \begin{align}
+          &\vec{D}_{N/2}\vec{F}_{N/2} \\
+          &= \mymat{W_N^0 & \cdots & 0 \\ \vdots & \ddots & \vdots \\ 0 & \cdots & W_N^{N/2-1}} \mymat{W_{N/2}^0 & \cdots & W_{N/2}^0 \\ \vdots & \ddots & \vdots \\ W_{N/2}^0 & \cdots & W_{N/2}^{(N/2 - 1)^2}}
+     \end{align}
+     \begin{align}
+          &= \mymat{W_N^0 W_{N/2}^0 & \cdots & W_N^0 W_{N/2}^0 \\ \vdots & \ddots & \vdots \\ W_N^{N/2-1} W_{N/2}^0 & \cdots & W_N^{N/2-1} W_{N/2}^{(N/2 - 1)^2}} 
+     \end{align}
+     
+     Thus
+     \begin{align}
+          \brak{\vec{D}_{N/2}\vec{F}_{N/2}}_{ij} &= W_N^i W_{N/2}^{ij} \\
+          &= W_N^i W_N^{2ij} \\
+          &= W_N^{i(2j + 1)}
+     \end{align}
+     where $i, j = 0, \ldots, N/2 - 1$
+     
+     Therefore, $\vec{D}_{N/2}\vec{F}_{N/2}$ forms the first $N/2$ rows of the odd-indexed columns of $\vec{F}_N$
+     \begin{align}
+          W_N^{(i + N/2)(2j + 1)} &= \exp\brak{-\j \frac{2\pi}{N} (2j + 1)\brak{i + \frac{N}{2}}} \\
+          &= \exp\brak{-\j \brak{\frac{2\pi}{N} (2j + 1)i + (2j + 1)\pi}} \\
+          &= -\exp\brak{-\j \frac{2\pi}{N} (2j + 1)i} \\
+          &= -W_N^{i(2j + 1)}
+     \end{align}
+     
+     Thus, the remaining $N/2$ rows will be the negatives of the first $N/2$ rows
+     \begin{align}
+          \brak{\vec{F}_{N/2}}_{ij} &= W_{N/2}^{ij} \\
+          &= W_N^{i(2j)}
+     \end{align}
+     where $i, j = 0, \ldots, N/2 - 1$
+     
+     Therefore, $\vec{F}_{N/2}$ forms the first $N/2$ rows of the even-indexed columns of $\vec{F}_N$
+     \begin{align}
+          W_N^{(i + N/2)(2j)} &= \exp\brak{-\j \frac{2\pi}{N} (2j)\brak{i + \frac{N}{2}}} \\
+          &= \exp\brak{-\j \brak{\frac{2\pi}{N} (2j)i + (2j)\pi}} \\
+          &= \exp\brak{-\j \frac{2\pi}{N} (2j)i} \\
+          &= W_N^{i(2j)}
+     \end{align}
+     Thus, the remaining $N/2$ rows will be the same as the first $N/2$ rows
+     
+     Therefore
+     \begin{align}
+          \mymat{\vec{F}_{N/2} & \vec{D}_{N/2}\vec{F}_{N/2} \\ \vec{F}_{N/2} & -\vec{D}_{N/2}\vec{F}_{N/2}} = \vec{F}_N \vec{P}_N
+     \end{align}
+     where 
+     \begin{align}
+          \vec{P}_N = \myvec{\vec{e}_N^1 & \vec{e}_N^3 & \cdots & \vec{e}_N^{N-1} & \vec{e}_N^2 & \vec{e}_N^4 & \cdots & \vec{e}_N^N}
+     \end{align}
+     
+     Hence
+     \begin{align}
+          \mymat{\vec{F}_{N/2} & \vec{D}_{N/2}\vec{F}_{N/2} \\ \vec{F}_{N/2} & -\vec{D}_{N/2}\vec{F}_{N/2}} \vec{P}_N = \vec{F}_N \vec{P}_N^2 = \vec{F}_N \\
+          \therefore \vec{F}_N = \mymat{\vec{I}_{N/2} & \vec{D}_{N/2} \\ \vec{I}_{N/2} & -\vec{D}_{N/2}} \mymat{\vec{F}_{N/2} & 0 \\ 0 & \vec{F}_{N/2}} \vec{P}_N
+     \end{align}
+     for even $N$
+
 \item Find 
     \begin{align}
 	     \vec{P}_4 \vec{x}
@@ -908,12 +977,17 @@ Given
     After proper zero padding of $\vec{P}_4$,
     \begin{align}
     \vec{P}_4&=\begin{bmatrix}
-    1&0&0&0&0&0\\0&0&1&0&0&0\\0&1&0&0&0&0\\0&0&0&1&0&0\\0&0&0&0&0&0\\0&0&0&0&0&0
-    \end{bmatrix}\\
+    1&0&0&0\\0&0&1&0\\0&1&0&0\\0&0&0&1
+    \end{bmatrix}
+\end{align}
+    \begin{align}
       \vec{P}_4 \vec{x}&=\begin{bmatrix}
-    1&0&0&0&0&0\\0&0&1&0&0&0\\0&1&0&0&0&0\\0&0&0&1&0&0\\0&0&0&0&0&0\\0&0&0&0&0&0
-    \end{bmatrix}\myvec{1\\2\\3\\4\\2\\1}\\
-    &=\myvec{1\\3\\2\\4\\0\\0}
+          1&0&0&0\\0&0&1&0\\0&1&0&0\\0&0&0&1
+    \end{bmatrix}
+    \myvec{1\\2\\3\\4}
+\end{align}
+    \begin{align}
+    &=\myvec{1\\3\\2\\4}
     \end{align}
 
 \item Show that 
@@ -952,6 +1026,7 @@ Given
 \item Derive the following Step-by-step visualisation  of
 8-point FFTs into 4-point FFTs and so on
 \begin{equation}
+     \label{eq:7-59}
 \begin{bmatrix}
 X(0) \\ 
 X(1) \\ 
@@ -981,6 +1056,7 @@ X_{2}(3)
 \end{equation}
 
 \begin{equation}
+     \label{eq:7-60}
 \begin{bmatrix}
 X(4) \\ 
 X(5) \\ 
@@ -1201,6 +1277,72 @@ x(3) \\
 x(7) \\ 
 \end{bmatrix}
 \end{equation}
+\solution We write out the values of performing an 8-point FFT on $\vec{x}$ as follows.
+\begin{align}
+	X(k) &= \sum_{n = 0}^{7}x(n)e^{-\frac{\j2kn\pi}{8}} \\
+		 &= \sum_{n = 0}^{3}\brak{x(2n)e^{-\frac{\j2kn\pi}{4}} + e^{-\frac{\j2k\pi}{8}}x(2n + 1)e^{-\frac{\j2kn\pi}{4}}} \\
+		 &= X_1(k) + e^{-\frac{\j2k\pi}{4}}X_2(k) 
+\end{align}
+where $\vec{X}_1$ is the 4-point FFT of the even-numbered terms and $\vec{X}_2$ is the 4-point FFT of the odd numbered terms. Noticing that for $k \geq 4$,
+\begin{align}
+	X_1(k) &= X_1(k - 4) \\
+	e^{-\frac{\j2k\pi}{8}} &= -e^{-\frac{\j2(k - 4)\pi}{8}}
+\end{align}
+we can now write out $X(k)$ in matrix form as in \eqref{eq:7-59} and \eqref{eq:7-60}. We also need to solve the two 4-point FFT terms so formed.
+\begin{align}
+	X_1(k) &= \sum_{n = 0}^{3}x_1(n)e^{-\frac{\j2kn\pi}{8}} \\
+		 &= \sum_{n = 0}^{1}\brak{x_1(2n)e^{-\frac{\j2kn\pi}{4}} + e^{-\frac{\j2k\pi}{8}}x_2(2n + 1)e^{-\frac{\j2kn\pi}{4}}} \\
+		 &= X_3(k) + e^{-\frac{\j2k\pi}{4}}X_4(k) 
+\end{align}
+using $x_1(n) = x(2n)$ and $x_2(n) = x(2n + 1)$. Thus we can write the 2-point FFTs
+\begin{align}
+\begin{bmatrix}
+X_{3}(0) \\ 
+X_{3}(1)\\ 
+\end{bmatrix}
+= F_{2}
+\begin{bmatrix}
+     x(0) \\ 
+x(4) \\ 
+\end{bmatrix} \\
+\begin{bmatrix}
+X_{4}(0) \\ 
+X_{4}(1)\\ 
+\end{bmatrix}
+= F_{2}
+\begin{bmatrix}
+x(2) \\ 
+x(6) \\ 
+\end{bmatrix}
+\end{align}
+Using a similar idea for the terms $X_2$, 
+\begin{align}
+\begin{bmatrix}
+X_{5}(0) \\ 
+X_{5}(1)\\ 
+\end{bmatrix}
+= F_{2}
+\begin{bmatrix}
+x(1) \\ 
+x(5) \\ 
+\end{bmatrix} \\
+\begin{bmatrix}
+X_{6}(0) \\ 
+X_{6}(1)\\ 
+\end{bmatrix}
+= F_{2}
+\begin{bmatrix}
+x(3) \\ 
+x(7) \\ 
+\end{bmatrix}
+\end{align}
+But observe that ,
+\begin{align}
+	\vec{P}_8\vec{x} &= \myvec{\vec{x}_1\\\vec{x}_2} \\
+	\vec{P}_4\vec{x}_1 &= \myvec{\vec{x}_3\\\vec{x}_4} \\ 
+	\vec{P}_4\vec{x}_2 &= \myvec{\vec{x}_5\\\vec{x}_6}
+\end{align}
+where we define $x_3(k) = x(4k)$, $x_4(k) = x(4k + 2)$, $x_5(k) = x(4k + 1)$, and $x_6(k) = x(4k + 3)$ for $k = 0, 1$.
 
 \item For 
 
@@ -1237,7 +1379,7 @@ x(7) \\
          \begin{align}
          \myvec{1\\2\\3\\4\\2\\1\\0\\0}
          \end{align}
-         Using ,
+         Using \eqref{7_12},
          \begin{align}
          \vec{F}_{8}=
          \begin{bmatrix}
@@ -1327,21 +1469,31 @@ Calculating $\vec{F_8}$,
      1&0&0&0&1&0&0&0\\0&1&0&0&0&\frac{-1-j}{\sqrt{2}}&\frac{1-j}{\sqrt{2}}&\frac{1+j}{\sqrt{2}}\\0&0&1&0&-1&1&0&-j\\0&0&0&1&0&\frac{1-j}{\sqrt{2}}&\frac{-1-j}{\sqrt{2}}&\frac{-1+j}{\sqrt{2}}\\1&0&0&0&-1&0&0&0\\0&1&0&0&0&\frac{1+j}{\sqrt{2}}&\frac{-1+j}{\sqrt{2}}&\frac{-1-j}{\sqrt{2}}\\0&0&1&0&1&-1&0&j\\0&0&0&1&0&\frac{-1+j}{\sqrt{2}}&\frac{1+j}{\sqrt{2}}&\frac{1-j}{\sqrt{2}}
      \end{bmatrix}\\ \vec{B}=\begin{bmatrix}
      1&1&0&1&0&0&0&0\\0&-j&1&j&0&0&0&0\\1&-1&0&j&0&0&0&0\\0&j&1&-j&0&0&0&0\\0&0&0&0&-1&-1&0&-1\\0&0&0&0&0&j&-1&j\\0&0&0&0&-1&1&0&-j\\0&0&0&0&0&-j&-1&j
-     \end{bmatrix}\\
+     \end{bmatrix}
+     \end{align}
+     And $\vec{P_8}$ is a permutation matrix.
+     \begin{align}
      \vec{F_8}=\begin{bmatrix}
           13\\-3.12-6.53j\\j\\1.12-0.53j\\-1\\1.12+0.53j\\-j\\-3.12+6.5355
           \end{bmatrix}
      \end{align}
-     And $\vec{P_8}$ is a permutation matrix.
-     \begin{align}
-     \vec{X}=\begin{bmatrix}
-      13\\-4-8j\\j\\ 2-2j\\ -1\\ 2+2j\\ -j\\ -4+8j
-     \end{bmatrix}
-     \end{align}
 %	    \eqref{eq:fft-mat-def}
 \item Write a C program to compute the 8-point FFT. 
-
+\solution Downlode the C code
+\begin{lstlisting}
+wget https://raw.githubusercontent.com/kumarsuraj151/EE3900/master/codes/7_FFt/7_13.c
+\end{lstlisting}
  \end{enumerate}
+
+ \begin{figure}[!ht]
+     \begin{center}
+     \includegraphics[width=\columnwidth]{./figs/runtime.png}
+     \end{center}
+     \captionof{figure}{}
+     \label{fig:runtime comparison}	
+     \end{figure}
+
+
 \section{Exercises}
 Answer the following questions by looking at the python code in Problem \ref{prob:output}.
 \begin{enumerate}[label=\thesection.\arabic*]
@@ -1358,6 +1510,23 @@ in Problem \ref{prob:output} is executed through the following difference equati
 %
 where the input signal is $x(n)$ and the output signal is $y(n)$ with initial values all 0. Replace
 \textbf{signal.filtfilt} with your own routine and verify.
+\solution On taking the $Z$-transform on both sides of the difference equation
+	\begin{align}
+		\sum _{m=0}^{M}a\brak{m} z^{-m} Y(z) &= \sum _{k=0}^{N}b\brak{k} z^{-k} X(z) \\
+		\implies H(z) = \frac{Y(z)}{X(z)} &= \frac{\sum _{k=0}^{N}b\brak{k} z^{-k}}{\sum _{m=0}^{M}a\brak{m} z^{-m}}
+	\end{align}
+	
+	For obtaining the discrete Fourier transform, put $z = \j \frac{2\pi i}{I}$ where $I$ is the length of the input signal and $i = 0, 1, \ldots, I-1$
+	
+	Download the following Python code that does the above
+	\begin{lstlisting}
+wget https://github.com/karthik6281/Signal-Processing/tree/main/Assignment1/codes/8_1.c
+	\end{lstlisting}
+	
+	Run the code by executing
+	\begin{lstlisting}
+		python3 8_1.py
+	\end{lstlisting}
 %
 \item Repeat all the exercises in the previous sections for the above $a$ and $b$.
 
