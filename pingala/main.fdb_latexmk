@@ -1,7 +1,7 @@
 # Fdb version 3
-["pdflatex"] 1665599613 "/home/suraj/Desktop/signal processing/pingala/main.tex" "main.pdf" "main" 1665599614
+["pdflatex"] 1665646298 "/home/suraj/Desktop/signal processing/pingala/main.tex" "main.pdf" "main" 1665646299
   "/etc/texmf/web2c/texmf.cnf" 1657263421 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/suraj/Desktop/signal processing/pingala/main.tex" 1665599613 16501 5819468f53ad18c34ef1ed985d56b361 ""
+  "/home/suraj/Desktop/signal processing/pingala/main.tex" 1665646296 16485 fb355daffa380d89f9706ca217da21e3 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/times/ptmb7t.tfm" 1136768653 2172 fd0c924230362ff848a33632ed45dc23 ""
@@ -133,14 +133,15 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1644012257 39432 7155514e09a3d69036fac785183a21c2 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1657263486 128028 f533b797fba58d231669ea19e894e23e ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1657263490 1405643 d13970f664c0db176c2fc7289cf25ff9 ""
-  "figs/Fig 1.1.png" 1665599475 12479 4844b32da0566bd817ce66e0b135e4f8 ""
-  "figs/Fig 1.2.png" 1665599512 15423 4eafd51aa162a18d2b8efa098cafc9ba ""
-  "figs/Fig 1.3.png" 1665599527 12840 b5826c5d8df7ff6cdf7cc70276435939 ""
+  "figs/1_1.png" 1665645456 12479 4844b32da0566bd817ce66e0b135e4f8 ""
+  "figs/1_2.png" 1665645487 15423 4eafd51aa162a18d2b8efa098cafc9ba ""
+  "figs/1_3.png" 1665645926 13240 8e52ea6eb440f5bf4c7e364dcede8b3c ""
+  "figs/1_4.png" 1665645939 16589 0e4908dec3b9ac607e9cb081ab880842 ""
   "figs/Fig 2.5.png" 1665518074 11243 bc39040ac1d429b32e4d3f84679325a9 ""
-  "main.aux" 1665599614 2090 2a3ed99f04a2faef1293d0099a3dd21d "pdflatex"
-  "main.out" 1665599614 377 6ef0fda02ae42ab5eb9699af63378c50 "pdflatex"
-  "main.tex" 1665599613 16501 5819468f53ad18c34ef1ed985d56b361 ""
-  "main.toc" 1665599614 214 d8b7ea01f6cb267aafd57c9bedbeced1 "pdflatex"
+  "main.aux" 1665646299 2090 2a3ed99f04a2faef1293d0099a3dd21d "pdflatex"
+  "main.out" 1665646299 377 6ef0fda02ae42ab5eb9699af63378c50 "pdflatex"
+  "main.tex" 1665646296 16485 fb355daffa380d89f9706ca217da21e3 ""
+  "main.toc" 1665646299 214 d8b7ea01f6cb267aafd57c9bedbeced1 "pdflatex"
   (generated)
   "main.aux"
   "main.log"
