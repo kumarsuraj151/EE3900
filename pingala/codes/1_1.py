@@ -1,90 +1,101 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import math
 import scipy
-def an(n,a,b):
-    if n<=0:
-        return 0.0
-    else:
-        return (a**n-b**n)/(a-b)
-def bn(n,a,b):
-    if n>=1:
-        return an(n-1,a,b)+an(n+1,a,b)
-    else:
-        return 0.0
-def f1(n,a,b):
-    return an(n+2,a,b)-1
-a=(1+math.sqrt(5))/2
-b=(1-math.sqrt(5))/2
+ 
+
+roots = np.polynomial.polynomial.polyroots((-1,-1,1))
+a = roots[0]
+b = roots[1]
+
+def a_k(k):
+    if k >=1:
+        return (a**k - b**k)/(a - b)
+    else :
+        return 0
+def b_k(k):
+    if k >=2:
+        return a_k(k-1) + a_k(k+1)
+    elif k == 1:
+        return 1.0
+    else :
+        return 0
+def sum_a(n):
+    sum = 0
+    for i in range(n):
+        sum += a_k(i+1)
+    return sum
+
+def powersum_a(n):
+    return np.dot(np.array([a_k(i) for i in range(1,n+1)]),np.array([1/10**i for i in range(1,n+1)]))
+
+def powersum_b(n):
+    return np.dot(np.array([b_k(i) for i in range(1,n+1)]),np.array([1/10**i for i in range(1,n+1)]))
+
+def powersum_roots(n):
+    if n >=1 :
+        return a**n + b**n
+    else :
+        return 0
+vec_a_k = scipy.vectorize(a_k)
+
+vec_sum = scipy.vectorize(sum_a)
+
+n = np.arange(10)
 #1.1
+plt.figure(1)
 
-n=np.arange(1,10)
+plt.stem(n,vec_sum(n),markerfmt = 'bo')
 
-vec_an=scipy.vectorize(an)
-
-
-def f2(n,a,b):
-    return np.sum(vec_an(np.arange(1,n+1),a,b))
-
-# vec_f1=scipy.vectorize(f1)
-# vec_f2=scipy.vectorize(f2)
-# l1=vec_f1(n,a,b)
-# l2=vec_f2(n,a,b)
-# plt.stem(n,l1,label=r'$a_{n+2}-1$',markerfmt='go')
-# plt.grid()
-# plt.legend()
-# plt.stem(n,l2,label=r'$\sum_{k=1}^{n}a_{k}$')
-# plt.grid()
-# plt.legend()
-# plt.savefig('../figs/1_1.png')
-# plt.show()
-
-# def f3(n,a,b):
-#    return np.dot(vec_an(np.arange(n),a,b),np.array([1/10**i for i in range(n)]))-10/89
-
-
-
-
+plt.stem(n,vec_a_k(n+2) - 1,linefmt = 'r--',markerfmt = 'ro')
+plt.legend(["$\sum_{k=1}^{n}a_k$","$a_{n+2} - 1$"])
+plt.grid()
+plt.savefig("../Figs/1_1.png")
+#plt.show()
 
 #1.2
-# vec_f3=scipy.vectorize(f3)
-# l3=vec_f3(n,a,b)
-# plt.stem(n,l3,label=r'$\sum_{k=1}^{n}\frac{a_{k}}{10^k}-(\frac{10}{89})$')
-# plt.legend()
-# plt.grid()
-# plt.savefig('../figs/1_2.png')
-# # plt.show()
+vec_powersum_a = scipy.vectorize(powersum_a)
+plt.figure(2)
 
+plt.stem(n,vec_powersum_a(n))
 
-
-
-
-
-# #1.3
-# def f4(n,a,b):
-#     return a**n+b**n
-# vec_f4=scipy.vectorize(f4)
-# vec_bn=scipy.vectorize(bn)
-# l4=vec_bn(n,a,b)
-# l5=vec_f4(n,a,b)
-# plt.stem(n,l4,label=r'$b_{n}$',markerfmt='go')
-# plt.grid()
-# plt.legend()
-# plt.stem(n,l5,label=r'$\alpha^n+\beta^n$')
-# plt.grid()
-# plt.legend()
-# plt.savefig('../figs/1_3.png')
-# plt.show()
-
-
-1.4
-vec_bn=scipy.vectorize(bn)
-def f5(n,a,b):
-   return np.dot(vec_bn(np.arange(n),a,b),np.array([1/10**i for i in range(n)]))-8/89
-vec_f5=scipy.vectorize(f5)
-l6=vec_f5(n,a,b)
-plt.stem(n,l6,label=r'$\sum_{k=1}^{n}\frac{b_{k}}{10^k}-(\frac{8}{89})$')
+plt.plot(n,np.ones(10)*10/89,color = 'g')
+plt.legend(["$y = 10/89$","$\sum_{k=1}^{\infty}a_k/10^k$"])
 plt.grid()
-plt.legend()
-plt.savefig('../figs/1_4.png')
+plt.savefig("../Figs/1.2.png")
+#plt.show()
+
+#1.3
+
+vec_b_k = scipy.vectorize(b_k)
+
+vec_powersum_roots = scipy.vectorize(powersum_roots)
+
+plt.figure(3)
+
+plt.stem(n,vec_powersum_roots(n),markerfmt = 'ro')
+
+plt.stem(n,vec_b_k(n),linefmt = 'r--',markerfmt = 'bo')
+
+plt.legend(["$b_n$",r"$\alpha^n + \beta^n$"])
+plt.grid()
+plt.savefig("../Figs/1.3.png")
 plt.show()
+
+#1.4
+
+vec_powersum_b = scipy.vectorize(powersum_b)
+plt.figure(4)
+
+plt.stem(n,vec_powersum_b(n))
+
+plt.plot(n,np.ones(10)*8/89,color = 'g')
+plt.legend(["$y = 8/89$","$\sum_{k=1}^{\infty}b_k/10^k$"])
+plt.grid()
+plt.savefig("../Figs/1.4.png")
+plt.show()
+
+
+
+
+
+
