@@ -39,7 +39,7 @@
 %\usepackage[framemethod=tikz]{mdframed}
 \usepackage{listings}
 \let\vec\mathbf
-
+\usepackage{tikz}
 
 %\usepackage{stmaryrd}
 
@@ -119,6 +119,8 @@ columns=fullflexible
 \providecommand{\mean}[1]{E\left[ #1 \right]}
 \providecommand{\fourier}{\overset{\mathcal{F}}{ \rightleftharpoons}}
 \providecommand{\ztrans}{\overset{\mathcal{Z}}{ \rightleftharpoons}}
+\providecommand{\foutranin}[1]{\mathcal{F}\cbrak{#1}}
+\providecommand{\foutranfin}[1]{\int_{-\infty}^{\infty}{#1}e^{-j2\pi ft}\,dt}
 
 %\providecommand{\hilbert}{\overset{\mathcal{H}}{ \rightleftharpoons}}
 %\providecommand{\system}{\overset{\mathcal{H}}{ \longleftrightarrow}}
@@ -253,9 +255,28 @@ Let
 \item Plot $x(t)$.\\
 \solution 
 \begin{lstlisting}
-wget 
+wget https://raw.githubusercontent.com/kumarsuraj151/EE3900/master/charger/codes/1.1.py
+
 \end{lstlisting}
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=\columnwidth]{./figs/1.1}
+	\caption{}
+	%\label{fig:ckt}
+\end{figure}
 \item Show that $x(t)$ is periodic and find its period.
+\solution 
+    If a signal $x(t)$ is periodic then
+    \begin{align}
+    x(t+T)=x(t)
+    \end{align}
+    where $T$ is known as fundamental period.
+    \indent Since $|sin\theta|$ function is periodic, x(t) is also periodic.
+    \begin{align}
+\text{Fundamental Period}=T=\frac{1}{2}\brak{\frac{2 \pi}{2 \pi f_0}}\\
+\label{eq:ftp}
+=\frac{1}{2f_0}
+    \end{align}
 \end{enumerate}
 \section{Fourier Series}
 Consider $A_0 =12$ and $f_0 = 50$ for all numerical calculations.
@@ -271,22 +292,161 @@ show that
 	c_k = f_0\int_{-\frac{1}{2f_0}}^{\frac{1}{2f_0}}x(t)e^{-\j2\pi kf_0 t}\, dt
 \label{eq:one-Z}
 \end{align}
+\solution 
+    From \eqref{eq:one-Z-complex},
+    \begin{align}
+            x(t) = \sum_{k = -\infty}^{\infty}c_ke^{\j2\pi kf_0 t}
+    \end{align}
+    Mulitply $e^{-\j2\pi lf_0 t}$ on both sides
+    \begin{align}
+    x(t)e^{-\j2\pi lf_0 t}=\sum_{k = -\infty}^{\infty}c_ke^{\j2\pi kf_0 t}e^{-\j2\pi lf_0 t}
+    \end{align}
+    Integrate on both sides with respect to 't' between $-T$ to $T$ where T is fundamental time period of x(t).\\
+    Using \eqref{eq:ftp},
+    \begin{align}
+    T=\frac{1}{2f_0}
+    \end{align}
+    \begin{align}
+    \int_{-\frac{1}{2f_0}}^{\frac{1}{2f_0}}x(t)e^{-\j2\pi kf_0 t}\, dt=\int_{-\frac{1}{2f_0}}^{\frac{1}{2f_0}}\sum_{k = -\infty}^{\infty}c_ke^{\j2\pi \brak{k-l}f_0 t}\,dt\\
+    =\sum_{k = -\infty}^{\infty}c_k\int_{-\frac{1}{2f_0}}^{\frac{1}{2f_0}}e^{\j2\pi \brak{k-l}f_0 t}\,dt
+    \end{align}
+    The above integral:
+    \begin{align}
+    \int_{-\frac{1}{2f_0}}^{\frac{1}{2f_0}}e^{\j2\pi \brak{k-l}f_0 t}\,dt=
+          \begin{cases}
+0 & k\neq l
+\\
+ \int_{-\frac{1}{2f_0}}^{\frac{1}{2f_0}}1\,dt& k=l
+\end{cases}
+    \end{align}
+    \begin{align}
+   \therefore \int_{-\frac{1}{2f_0}}^{\frac{1}{2f_0}}x(t)e^{-\j2\pi kf_0 t}\, dt &=\brak{\frac{1}{f_0}}c_k\\
+  \therefore c_k = f_0\int_{-\frac{1}{2f_0}}^{\frac{1}{2f_0}}x(t)e^{-\j2\pi kf_0 t}\, dt
+    \end{align}
 	\item Find $c_k$ for 
-	\eqref{eq:10-orig-diff-def}
+	\eqref{eq:10-orig-diff-def}\\
+	\solution
+	$c_k$ can be calculated even simpler by using
+	\begin{align}
+	c_k = 2f_0\int_{0}^{\frac{1}{2f_0}}x(t)e^{- \j2 \pi kf_0 t}\, dt
+	\end{align}
+	$x(t)=A_0 \sin\brak{2 \pi f_0t}$ in 0 to $\frac{1}{2f_0}$ region.\\
+Also,
+	\begin{align}
+	\label{eq:sin}
+ \sin \theta  =\frac{e^{\j\theta}-e^{-\j \theta}}{2\j} 
+  \end{align}
+  Using \eqref{eq:sin},
+  \begin{align}
+  c_k &= 2f_0\int_{0}^{\frac{1}{2f_0}}A_0 \brak{\frac{e^{\j2\pi f_0t}-e^{-\j 2\pi f_0t}}{2\j}} e^{- \j2 \pi kf_0 t}\,dt\\
+  &=A_0f_0\int_{0}^{\frac{1}{2f_0}} \brak{\frac{e^{\j2\pi\brak{1-k} f_0t}-e^{\j 2\pi\brak{-1-k} f_0t}}{\j}}\,dt\\
+&=A_0f_0\sbrak{\frac{e^{\j2\pi\brak{1-k} f_0t}}{-2\pi \brak{1-k}f_0}\Big|_0^{\frac{1}{2f_0}} - \frac{e^{\j2\pi\brak{-1-k} f_0t}}{-2\pi \brak{-1-k}f_0}\Big|_0^{\frac{1}{2f_0}}}\\
+&=A_0\sbrak{\frac{e^{j\pi\brak{1-k}}-1}{2\pi\brak{k-1}}-\frac{e^{-j\pi\brak{1+k}}-1}{2\pi\brak{k+1}}}
+  \end{align}
+  \begin{equation}
+  \label{eq:ck}
+ = \begin{cases}
+\frac{2A_0}{\pi\brak{1-k^2}}&k=even
+\\
+0&k=odd
+\end{cases}
+  \end{equation}
 \item Verify 
 	\eqref{eq:10-orig-diff-def}
-	using python.
+	using python.\\
+	\solution
+\begin{lstlisting}
+wget https://raw.githubusercontent.com/kumarsuraj151/EE3900/master/charger/codes/1.1.py
+\end{lstlisting}
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=\columnwidth]{./figs/2.3}
+	\caption{}
+	%\label{fig:ckt}
+\end{figure}
 	\item Show that 
 \begin{align}
 	x(t) = \sum_{k = 0}^{\infty}\brak{a_k\cos{\j2\pi kf_0 t}+b_k\sin{\j2\pi kf_0 t}}
 \label{eq:one-Z-real}
 \end{align}
 and obtain the formulae for $a_k$ and $b_k$.
-\item Find $a_k$ and $b_k$ for 
-	\eqref{eq:10-orig-diff-def}
+\solution
+    Using \eqref{eq:one-Z-complex},
+    \begin{align}
+    x(t) = \sum_{k = -\infty}^{\infty}c_ke^{\j2\pi kf_0 t}
+    \end{align}
+    As,
+    \begin{align}
+    e^{\j2\pi kf_0 t}=\cos\brak{2\pi kf_0 t}+j\sin\brak{2\pi kf_0 t}
+    \end{align}
+    Substituting leads to
+    \begin{align}
+    x(t) &= \sum_{k = -\infty}^{\infty}c_k\sbrak{\cos\brak{2\pi kf_0 t}+j\sin\brak{2\pi kf_0 t}}\\
+    \label{eq:2.4}
+    &=\sum_{k = -\infty}^{\infty}c_k\cos\brak{2\pi kf_0 t}+jc_k\sin\brak{2\pi kf_0 t}  \\ 
+    &\nonumber =\sum_{k = -\infty}^{-1}\sbrak{c_k\cos\brak{2\pi kf_0 t}+  jc_k\sin\brak{2\pi kf_0 t}} \\ 
+    &  + c_0+\sum_{k = 1}^{\infty}\sbrak{c_k\cos\brak{2\pi kf_0 t}+jc_k\sin\brak{2\pi kf_0 t}}
+  \end{align}
+  \begin{align}
+    &\nonumber =\sum_{k = 1}^{\infty}\sbrak{c_{-k}\cos\brak{2\pi kf_0 t}-jc_{-k}\sin\brak{2\pi kf_0 t}}\\
+    & +c_0+ \sum_{k = 1}^{\infty}\sbrak{c_k\cos\brak{2\pi kf_0 t}+jc_k\sin\brak{2\pi kf_0 t}}\\
+    &=c_0+\sum_{k = 1}^{\infty}\sbrak{\brak{c_k+c_{-k}}\cos\brak{2\pi kf_0 t}+j\brak{c_k-c_{-k}}\sin\brak{2\pi kf_0 t}}
+    \end{align}
+    Replacing $\brak{c_k+c_{-k}}\to a_k$ and $j\brak{c_k-c_{-k}} \to b_k$,
+    \begin{align}
+&=c_0+    \sum_{k = 1}^{\infty}\brak{a_k\cos{2\pi kf_0 t}+b_k\sin{2\pi kf_0 t}}\\
+&=\sum_{k = 0}^{\infty}\brak{a_k\cos{2\pi kf_0 t}+b_k\sin{2\pi kf_0 t}}
+    \end{align}
+    \begin{align}
+    \label{eq:u1}
+    \therefore a_k=
+    \begin{cases}
+    c_k+c_{-k}&k\neq0
+    \\
+    c_0&k=0
+    \end{cases}\\
+    \label{eq:u2}
+    b_k=j\brak{c_k-c_{-k}}
+    \end{align}
+    Using \eqref{eq:one-Z},
+    \begin{align}
+    c_k = f_0\int_{-\frac{1}{2f_0}}^{\frac{1}{2f_0}}x(t)e^{-\j2\pi kf_0 t}\, dt\\
+    c_{-k} = f_0\int_{-\frac{1}{2f_0}}^{\frac{1}{2f_0}}x(t)e^{\j2\pi kf_0 t}\, dt\end{align}
+    \begin{align}
+    a_k=c_k+c_{-k}&= f_0\int_{-\frac{1}{2f_0}}^{\frac{1}{2f_0}}x(t)\sbrak{e^{-\j2\pi kf_0 t}+e^{\j2\pi kf_0 t}}\, dt\\
+    &=2f_0\int_{-\frac{1}{2f_0}}^{\frac{1}{2f_0}}x(t)\cos\brak{2\pi kf_0t}\, dt
+    \end{align}
+    Parallely,
+    \begin{align}
+    b_k&=-2jf_0\int_{-\frac{1}{2f_0}}^{\frac{1}{2f_0}}x(t)\sin\brak{2\pi kf_0t}\, dt
+    \end{align}
+    \item Find $a_k$ and $b_k$ for 
+        \eqref{eq:10-orig-diff-def}\\
+        \solution
+        Using \eqref{eq:u1} and \eqref{eq:u2} with \eqref{eq:ck},
+    \begin{align}
+    a_k=c_k+c_{-k}=\begin{cases}
+\frac{4A_0}{\pi\brak{1-k^2}}&k=even
+\\
+\frac{2A_0}{\pi}&k=0
+\\
+0&k=odd
+\end{cases}\\
+b_k=j\brak{c_k-c_{-k}}=0
+    \end{align}
 \item Verify 
 \eqref{eq:one-Z-real}
-using python.
+using python.\\
+\solution 
+  \begin{lstlisting}
+  wget https://raw.githubusercontent.com/kumarsuraj151/EE3900/master/charger/codes/1.1.py
+  \end{lstlisting}
+    \begin{figure}[!ht]
+\centering
+\includegraphics[width=\columnwidth]{./figs/2.6}
+\caption{}
+			%\label{fig:ckt}
+\end{figure}
 
 \end{enumerate}
 \section{Fourier Transform}
@@ -309,27 +469,140 @@ using python.
  \begin{align}
 	 g(t-t_0)&\system{F}G(f)e^{-j2\pi ft_0}\\
  \end{align}
+ \solution 
+ \begin{align}
+ \mathcal{F}\cbrak{g(t-t_0)}=\int_{-\infty}^{\infty}g(t-t_0)e^{-j2\pi ft}\,dt\\
+ =e^{-j2\pi ft_0}\int_{-\infty}^{\infty}g(t-t_0)e^{-j2\pi f\brak{t-t_0}}\,dt\\
+=G(f)e^{-j2\pi ft_0}
+ \end{align}
  \item Show that 
  \begin{align}
 	 G(t)&\system{F}g(-f)
  \end{align}
- \item $\delta(t)\system{F}?$
- \item $e^{-j2\pi f_0t}\system{F}?$
- \item $\cos(2\pi f_0t)\system{F}?$
- \item Find the Fourier Transform of $x(t)$ and plot it.  Verify using python.
+ \solution From the definition of Inverse Fourier Transform
+ \begin{align}
+ g(t)=\int_{-\infty}^{\infty}G(f)e^{j2\pi ft}\,df
+ \end{align}
+ Replace t $\to$ f,
+ \begin{align}
+  g(f)=\int_{-\infty}^{\infty}G(t)e^{j2\pi ft}\,dt
+  \end{align}
+  Replace f $\to$ -f,
+  \begin{align}
+   g(-f)=\int_{-\infty}^{\infty}G(t)e^{-j2\pi ft}\,dt\\
+    =\mathcal{F}\cbrak{G(t)}
+  \end{align}
+  \begin{align}
+  \therefore  G(t)&\system{F}g(-f)
+  \label{eq:dual}
+ \end{align}
+ \item $\delta(t)\system{F}?$\\
+ \solution
+ \begin{align}
+ \foutranin{\delta(t)}=\foutranfin{\delta(t)}\\
+ =\int_{-\infty}^{\infty}\delta(t)\,dt\\
+ \end{align}
+ Since $e^{-j2\pi ft}=1$ for t=0 and remaining integrand is zero for t $\neq0$.
+ \begin{align}
+  =\int_{-\infty}^{\infty}\delta(t)\,dt\\
+  =1
+ \end{align}
+ \item $e^{-j2\pi f_0t}\system{F}?$\\
+ \solution 
+ \begin{align}
+ \foutranin{e^{-j2\pi f_0t}}=\int_{-\infty}^{\infty}1\cdot e^{-j2\pi\brak{f+f_0}t}\,dt\\
+ =\int_{-\infty}^{\infty}\foutranin{\delta(t)} e^{-j2\pi\brak{f+f_0}t}\,dt
+ \end{align}
+ Using \eqref{eq:duality},
+ \begin{align}
+ \label{eq:eft}
+ =\delta(-(f+f_0))=\delta(f+f_0)
+ \end{align}
+ \item $\cos(2\pi f_0t)\system{F}?$\\
+ \solution
+ \begin{align}
+ \foutranin{\cos(2\pi f_0t)}=\foutranin{\frac{{e^{j2\pi f_0t}+e^{-j2\pi f_0t}}}{2}}
+ \end{align}
+ Using \eqref{eq:eft},
+ \begin{align}
+ =\frac{\delta(f+f_0)+\delta(f-f_0)}{2}
+ \end{align}
+ \item Find the Fourier Transform of $x(t)$ and plot it.  Verify using python.\\
+ \solution
+ \begin{align}
+  \foutranin{x(t)}=\foutranin{\sum_{k = -\infty}^{\infty}c_ke^{\j2\pi kf_0 t}}\\
+  X(f)=\sum_{k = -\infty}^{\infty}c_k\delta(f-kf_0)
+  \end{align}
  \item Show that 
  \begin{align}
 	 \rect{t} \system{F} \sinc{t}
  \end{align}
- Verify using python.
+ Verify using python.\\
+ \solution
+ \begin{align}
+  \foutranin{\rect{t}}=\foutranfin{\rect{t}}\\
+  =\int_{-\frac{1}{2}}^{\frac{1}{2}}1\cdot e^{-j2\pi ft}\,dt\\
+  =\frac{e^{-j2\pi ft}}{-j2\pi f}\Big |_{-\frac{1}{2}}^{\frac{1}{2}}\\
+ \label{eq:rectf}
+  =\sinc{t}
+  \end{align}
  \item 
-$	 \sinc{t}\system{F} ?$.  Verify using python.
+$	 \sinc{t}\system{F} ?$.  Verify using python.\\
+\solution
+Using \eqref{eq:rectf}, \eqref{eq:dual} and even property of rect function,
+\begin{align}
+\label{eq:sinc}
+\sinc{t}\system{F}\rect{t}
+\end{align}
 \end{enumerate}
 \section{Filter}
 \begin{enumerate}[label=\thesection.\arabic*
 ,ref=\thesection.\theenumi]
 \item Find $H(f)$ which transforms $x(t)$ to DC 5V.
+\solution
+\begin{figure}[!ht]
+\centering
+\begin{tikzpicture}
+\tikzstyle{block} = [draw, shape=rectangle, minimum height=3em, minimum width=4em, node distance=2cm, line width=1pt]
+\node at (-2.5,0) (input) {$x[t]$};
+\node [block] (h) {$h[t]$};
+\node at (2.5,0) (output) {$x[t]*h[t]$};
+\begin{scope}[line width=1pt]
+         \draw[->] (input) -- (h);
+         \draw[->] (h) -- (output); 
+    \end{scope}
+\end{tikzpicture}
+\end{figure}
+\begin{figure}[!ht]
+\centering
+\begin{tikzpicture}
+\tikzstyle{block} = [draw, shape=rectangle, minimum height=3em, minimum width=4em, node distance=2cm, line width=1pt]
+\node at (-2.5,0) (input) {$X(f)$};
+\node [block] (h) {$H(f)$};
+\node at (2.5,0) (output) {$X(f)H(f)$};
+\begin{scope}[line width=1pt]
+         \draw[->] (input) -- (h);
+         \draw[->] (h) -- (output); 
+    \end{scope}
+\end{tikzpicture}
+\end{figure}
+\begin{align}
+X(f)H(f)=V_0\delta(f)
+\end{align}
+Above equation indicates that H(f) will pass X(f) for f=0.\\
+\,$\therefore$ H(f) should be a low pass filter.
+\begin{align}
+|H(f)|=\frac{V_0}{\brak{\frac{2A_0}{\pi}}}=\frac{V_0\pi}{2A_0}\\
+H(f)=\frac{V_0\pi}{2A_0} \hspace{10pt}in\hspace{8pt}-2f_0\leq f\leq 2f_0\\
+\label{eq:hf}
+H(f)=\frac{V_0\pi}{2A_0}\rect{\frac{f}{4f_0}}
+\end{align}
 \item Find $h(t)$.
+\solution 
+Using \eqref{eq:hf} and \eqref{eq:sinc},
+\begin{align}
+h(t)=\frac{2V_0\pi f_0}{A_0}\sinc{4f_0t}
+\end{align}
 \item Verify your result using  through convolution.
 \end{enumerate}
 \section{Filter Design}
