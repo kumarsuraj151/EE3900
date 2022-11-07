@@ -1,7 +1,7 @@
 # Fdb version 3
-["pdflatex"] 1667367918 "/home/suraj/Desktop/signal processing/cktsig/main.tex" "main.pdf" "main" 1667367920
+["pdflatex"] 1667755659 "/home/suraj/Desktop/signal processing/cktsig/main.tex" "main.pdf" "main" 1667755659
   "/etc/texmf/web2c/texmf.cnf" 1657263421 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/suraj/Desktop/signal processing/cktsig/main.tex" 1667367917 16744 f0d9d09e492df7eb14cfe2d12a287ee6 ""
+  "/home/suraj/Desktop/signal processing/cktsig/main.tex" 1667755656 16755 5a1d8326462359a438dab8f98e4db9dd ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/times/ptmb7t.tfm" 1136768653 2172 fd0c924230362ff848a33632ed45dc23 ""
@@ -217,10 +217,9 @@
   "figs/4.3.png" 1667189316 18044 0231b0765547f702af6dd3538ac393ac ""
   "figs/ckt.jpg" 1665239295 69298 63890edd9fcac75851d5561bfccbbec3 ""
   "figs/lap-ckt.jpg" 1665239295 144596 60230f709c71f4dc5cd9c27272bc7bfb ""
-  "main.aux" 1667367920 3525 ccc4769873974d15bf2b572bf65061f3 "pdflatex"
-  "main.out" 1667367920 501 d3bf9c80be444e36f35564b54c366050 "pdflatex"
-  "main.tex" 1667367917 16744 f0d9d09e492df7eb14cfe2d12a287ee6 ""
-  "main.toc" 1667367920 288 202447620c7adc1e2f8b553f76e282e0 "pdflatex"
+  "main.aux" 1667755659 32 3985256e7290058c681f74d7a3565a19 "pdflatex"
+  "main.out" 0 -1 0 "pdflatex"
+  "main.tex" 1667755656 16755 5a1d8326462359a438dab8f98e4db9dd ""
   (generated)
   "main.aux"
   "main.log"
